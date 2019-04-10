@@ -32,7 +32,7 @@ module "codebuild" {
   security_group_id = "${module.vpc.control_panel_security_group_id}"
   subnet_ids        = "${module.vpc.private_subnet_ids}"
   region            = "${var.region}"
-  accountId         = "${var.accountId}"
+  accountId         = "${data.aws_caller_identity.current.account_id}"
 }
 
 module "pipeline" {
