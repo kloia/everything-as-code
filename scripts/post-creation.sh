@@ -12,7 +12,8 @@ DOCKER_REGISTRY_SERVER=https://${AWS_ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com
 DOCKER_USER=AWS
 DOCKER_PASSWORD=`aws ecr get-login --region ${REGION} --registry-ids ${AWS_ACCOUNT} | cut -d' ' -f6`
 
-kubectl delete -n vote secret aws-registry || true
+kubectl create ns vote
+
 kubectl create -n vote secret docker-registry aws-registry \
   --docker-server=$DOCKER_REGISTRY_SERVER \
   --docker-username=$DOCKER_USER \
