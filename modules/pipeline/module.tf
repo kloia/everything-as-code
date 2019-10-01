@@ -199,8 +199,6 @@ provider "github" {
 resource "github_repository_webhook" "github_webhook" {
   repository = "example-voting-app"
 
-  name = "web"
-
   configuration {
     url          = "${aws_codepipeline_webhook.pipeline_webhook.url}"
     content_type = "json"

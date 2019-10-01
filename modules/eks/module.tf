@@ -141,7 +141,7 @@ resource "null_resource" "kube_config" {
   }
 
   provisioner "local-exec" {
-    command = "rm -rf ~/.kube/kloia && aws eks --region ${var.region} update-kubeconfig --name ${var.project_name} --kubeconfig ~/.kube/kloia --profile kloia && export KUBECONFIG=~/.kube/kloia"
+    command = "rm -rf ~/.kube/kloia && aws eks --region ${var.region} update-kubeconfig --name ${var.project_name} --kubeconfig ~/.kube/kloia --alias kloia --profile kloia && export KUBECONFIG=~/.kube/kloia"
   }
 }
 

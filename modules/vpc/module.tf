@@ -103,14 +103,21 @@ resource "aws_route_table" "voting_private" {
 
   vpc_id = "${aws_vpc.voting.id}"
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = "${element(aws_nat_gateway.voting.*.id, count.index)}"
-  }
+  # route {
+  #   cidr_block = "0.0.0.0/0"
+  #   gateway_id = "${element(aws_nat_gateway.voting.*.id, count.index)}"
+  # }
 
   tags {
     Name = "${var.project_name}_private - ${count.index}"
   }
+}
+
+resource "aws_route" "private_route" {
+  count                  = 2
+  route_table_id         = "${element(aws_route_table.voting_private.*.id, count.index)}"
+  nat_gateway_id         = "${element(aws_nat_gateway.voting.*.id, count.index)}"
+  destination_cidr_block = "0.0.0.0/0"
 }
 
 # Route Table Association
